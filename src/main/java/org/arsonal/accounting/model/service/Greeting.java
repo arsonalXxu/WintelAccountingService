@@ -1,4 +1,4 @@
-package org.arsonal.accounting.entity;
+package org.arsonal.accounting.model.service;
 
 public class Greeting {
     private long id;
