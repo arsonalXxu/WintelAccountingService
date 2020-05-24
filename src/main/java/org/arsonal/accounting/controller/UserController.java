@@ -2,7 +2,7 @@ package org.arsonal.accounting.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.arsonal.accounting.converter.commons2Service.UserInfoConverter;
+import org.arsonal.accounting.converter.commons2Service.UserInfoC2SConverter;
 import org.arsonal.accounting.manager.UserInfoManager;
 import org.arsonal.accounting.model.service.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +18,18 @@ public class UserController {
     // 1.不要有过多的处理逻辑；
     // 2.参数校验越早越好；
     private UserInfoManager userInfoManager;
-    private final UserInfoConverter userInfoConverter;
+    private final UserInfoC2SConverter userInfoC2SConverter;
 
     @Autowired
-    public UserController(UserInfoManager userInfoManager, UserInfoConverter userInfoConverter) {
+    public UserController(UserInfoManager userInfoManager, UserInfoC2SConverter userInfoC2SConverter) {
         this.userInfoManager = userInfoManager;
-        this.userInfoConverter = userInfoConverter;
+        this.userInfoC2SConverter = userInfoC2SConverter;
     }
 
     @GetMapping("/{id}")
     public UserInfo getUserInfoByUserId(@PathVariable("id") Long userId) {
         log.debug("Get user info by user id {}", userId);
         val userInfo = userInfoManager.getUserInfoByUserId(userId);
-        return userInfoConverter.convert(userInfo);
+        return userInfoC2SConverter.convert(userInfo);
     }
 }

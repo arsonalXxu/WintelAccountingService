@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Component
 @NoArgsConstructor
-public class UserInfoConverter extends Converter<UserInfo, org.arsonal.accounting.model.common.UserInfo> {
+public class UserInfoP2CConverter extends Converter<UserInfo, org.arsonal.accounting.model.common.UserInfo> {
     @Override
     protected org.arsonal.accounting.model.common.UserInfo doForward(UserInfo userInfo) {
         return org.arsonal.accounting.model.common.UserInfo.builder()
