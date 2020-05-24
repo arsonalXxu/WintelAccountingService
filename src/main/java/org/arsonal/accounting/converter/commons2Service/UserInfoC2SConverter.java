@@ -7,13 +7,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @NoArgsConstructor
-public class UserInfoConverter extends Converter<UserInfo, org.arsonal.accounting.model.service.UserInfo> {
+public class UserInfoC2SConverter extends Converter<UserInfo, org.arsonal.accounting.model.service.UserInfo> {
     @Override
     protected org.arsonal.accounting.model.service.UserInfo doForward(UserInfo userInfo) {
         return org.arsonal.accounting.model.service.UserInfo.builder()
                 .id(userInfo.getId())
                 .username(userInfo.getUsername())
-                .password(userInfo.getPassword())
                 .build();
     }
 
