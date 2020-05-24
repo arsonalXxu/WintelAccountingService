@@ -3,13 +3,20 @@ package org.arsonal.accounting.controller;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.arsonal.accounting.converter.commons2Service.UserInfoC2SConverter;
+import org.arsonal.accounting.exception.ErrorResponse;
+import org.arsonal.accounting.exception.ResourceNotFountException;
+import org.arsonal.accounting.exception.ServiceException;
 import org.arsonal.accounting.manager.UserInfoManager;
 import org.arsonal.accounting.model.service.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("v1/users")
@@ -27,9 +34,21 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserInfo getUserInfoByUserId(@PathVariable("id") Long userId) {
+    public ResponseEntity<?> getUserInfoByUserId(@PathVariable("id") Long userId) {
         log.debug("Get user info by user id {}", userId);
-        val userInfo = userInfoManager.getUserInfoByUserId(userId);
-        return userInfoC2SConverter.convert(userInfo);
+//        try {
+
+            val userInfo = userInfoManager.getUserInfoByUserId(userId);
+            return ResponseEntity.ok(userInfoC2SConverter.convert(userInfo));
+//        } catch (ResourceNotFountException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body(ErrorResponse.builder()
+//                            .errorCode("USER_NOT_FOUND")
+//                            .statusCode(HttpStatus.NOT_FOUND.value())
+//                            .errorType(ServiceException.ErrorType.Client)
+//                            .message(e.getMessage())
+//                            .build());
+//
+//        }
     }
 }
