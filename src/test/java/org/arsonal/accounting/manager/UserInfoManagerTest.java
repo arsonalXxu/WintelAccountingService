@@ -1,34 +1,32 @@
 package org.arsonal.accounting.manager;
 
+import lombok.val;
 import org.arsonal.accounting.converter.persistence2Commons.UserInfoP2CConverter;
 import org.arsonal.accounting.dao.UserInfoDAO;
-import org.arsonal.accounting.dao.UserInfoDAOImpl;
-import org.arsonal.accounting.dao.mapper.UserInfoMapper;
 import org.arsonal.accounting.exception.InvalidParameterException;
-import org.arsonal.accounting.model.common.UserInfo;
-import org.arsonal.accounting.utils.UserInfoMapperTestImpl;
+import org.arsonal.accounting.exception.ResourceNotFountException;
+import org.arsonal.accounting.model.persistence.UserInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
-import java.util.List;
+import java.time.LocalDate;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class UserInfoManagerTest {
     UserInfoManager userInfoManager;
+    @Mock
+    UserInfoDAO userInfoDAO;
 
     @BeforeEach
     void setUp() {
-        UserInfoMapper userInfoMapper = new UserInfoMapperTestImpl();
-        UserInfoDAO userInfoDAO = new UserInfoDAOImpl(userInfoMapper);
+        MockitoAnnotations.initMocks(this);
         UserInfoP2CConverter userInfoP2CConverter = new UserInfoP2CConverter();
         userInfoManager = new UserInfoManagerImpl(userInfoDAO, userInfoP2CConverter);
     }
@@ -36,13 +34,27 @@ public class UserInfoManagerTest {
     @Test
     void testGetUserInfoByUserId() {
         // Arrange
-        long userId = 1L;
+        val userId = 1L;
+        val username = "hardcore";
+        val password = "hardcore";
+        val now = LocalDate.now();
+
+        val userInfo = UserInfo.builder()
+                .id(userId)
+                .username(username)
+                .password(password)
+                .createTime(now)
+                .build();
         // Act
-        UserInfo userInfo = userInfoManager.getUserInfoByUserId(userId);
+        doReturn(userInfo).when(userInfoDAO).getUserInfoById(userId);
+        val result = userInfoManager.getUserInfoByUserId(userId);
         // Assert
-        Assertions.assertEquals(userId, userInfo.getId());
-        Assertions.assertEquals("hardcore", userInfo.getUsername());
-        Assertions.assertEquals("hardcore", userInfo.getPassword());
+        assertThat(result).isNotNull()
+                .hasFieldOrPropertyWithValue("username", username)
+                .hasFieldOrPropertyWithValue("password", password)
+                .hasFieldOrPropertyWithValue("id", userId);
+
+        verify(userInfoDAO).getUserInfoById(userId);
 
 
     }
@@ -53,38 +65,8 @@ public class UserInfoManagerTest {
         long userId = -1L;
         // Act
         // Assert
-        assertThrows(InvalidParameterException.class, () -> userInfoManager.getUserInfoByUserId(userId));
-    }
-
-    @Test
-    void testListAddMethod() {
-        // mock creation
-        List mockedList = mock(List.class);
-
-        when(mockedList.get(0)).thenReturn("hello ");
-        when(mockedList.get(1)).thenReturn("hardcore!");
-        when(mockedList.get(2)).thenThrow(new InvalidParameterException("invalid params"));
-        doReturn("hello world!").when(mockedList).get(3);
-//        mockedList.get(999);
-
-        // using mock object - it does not throw any "unexpected interaction" exception
-        mockedList.add("one");
-        mockedList.clear();
-        mockedList.clear();
-        mockedList.clear();
-
-        // verify判断，mockList调用add,clear方法
-        // selective, explicit, highly readable verification
-        verify(mockedList).add("one");
-        // 判断mockList调用clear方法3次
-        verify(mockedList, times(3)).clear();
-//        verify(mockedList).clear();
-
-        System.out.println(mockedList.get(0));
-        System.out.println(mockedList.get(1));
-//        Assertions.assertThrows(InvalidParameterException.class, () -> mockedList.get(2));
-//        verify(mockedList, never()).get(999);
-
-        verify(mockedList, times(2)).get(anyInt());
+        doReturn(null).when(userInfoDAO).getUserInfoById(userId);
+        assertThrows(ResourceNotFountException.class, () -> userInfoManager.getUserInfoByUserId(userId));
+        verify(userInfoDAO).getUserInfoById(userId);
     }
 }

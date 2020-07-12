@@ -25,9 +25,9 @@ public class UserInfoManagerImpl implements UserInfoManager {
     @Override
     public UserInfo getUserInfoByUserId(Long userId) {
         // org.arsonal.accounting.model.persistence.UserInfo，实际返回这种类型，val可以自动类型判断
-        if (userId <= 0L) {
-            throw new InvalidParameterException(String.format("User id %s is invalidate", userId));
-        }
+//        if (userId <= 0L) {
+//            throw new InvalidParameterException(String.format("User id %s is invalidate", userId));
+//        }
         val userInfo = Optional.ofNullable(userInfoDAO.getUserInfoById(userId))
                 .orElseThrow(() -> new ResourceNotFountException(String.format("User id %s was not found", userId)));
         return userInfoP2CConverter.convert(userInfo);
