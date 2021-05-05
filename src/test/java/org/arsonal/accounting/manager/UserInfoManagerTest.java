@@ -3,21 +3,19 @@ package org.arsonal.accounting.manager;
 import lombok.val;
 import org.arsonal.accounting.converter.persistence2Commons.UserInfoP2CConverter;
 import org.arsonal.accounting.dao.UserInfoDAO;
-import org.arsonal.accounting.exception.InvalidParameterException;
 import org.arsonal.accounting.exception.ResourceNotFountException;
 import org.arsonal.accounting.model.persistence.UserInfo;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 
 public class UserInfoManagerTest {
     UserInfoManager userInfoManager;
