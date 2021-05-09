@@ -42,4 +42,9 @@ class ApplicationTest {
     void addFail() {
 //        Assertions.assertNotEquals(4, Application.add(1, 1, 1));
     }
+
+    @Test
+    void test() throws InterruptedException {
+        Thread.sleep(10 * 1000);
+    }
 }
