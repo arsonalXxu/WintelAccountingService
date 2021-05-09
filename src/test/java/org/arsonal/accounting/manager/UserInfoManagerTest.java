@@ -54,7 +54,6 @@ public class UserInfoManagerTest {
 
         verify(userInfoDAO).getUserInfoById(userId);
 
-
     }
 
     @Test
