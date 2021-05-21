@@ -1,8 +1,9 @@
-package org.arsonal.accounting.converter.commons2Service;
+package org.arsonal.accounting.converter.commons2service;
+
+import org.arsonal.accounting.model.common.UserInfo;
 
 import com.google.common.base.Converter;
 import lombok.NoArgsConstructor;
-import org.arsonal.accounting.model.common.UserInfo;
 import org.springframework.stereotype.Component;
 
 @Component

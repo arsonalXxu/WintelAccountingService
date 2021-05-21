@@ -1,9 +1,10 @@
 package org.arsonal.accounting.dao.mapper;
 
+import org.arsonal.accounting.model.persistence.UserInfo;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.arsonal.accounting.model.persistence.UserInfo;
 
 @Mapper
 public interface UserInfoMapper {

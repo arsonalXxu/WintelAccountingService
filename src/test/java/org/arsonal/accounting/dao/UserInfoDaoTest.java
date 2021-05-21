@@ -16,15 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // 加入下面这个注解就不用在setup中写MockitoAnnotations.initMocks(this);
 @ExtendWith(MockitoExtension.class)
-class UserInfoDAOTest {
+class UserInfoDaoTest {
 
-    private UserInfoDAO userInfoDAO;
+    private UserInfoDao userInfoDAO;
     @Mock
     private UserInfoMapper userInfoMapper;
 
     @BeforeEach
     public void setup() {
-        userInfoDAO = new UserInfoDAOImpl(userInfoMapper);
+        userInfoDAO = new UserInfoDaoImpl(userInfoMapper);
     }
 
     @Test

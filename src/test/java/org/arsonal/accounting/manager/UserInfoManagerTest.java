@@ -1,8 +1,8 @@
 package org.arsonal.accounting.manager;
 
 import lombok.val;
-import org.arsonal.accounting.converter.persistence2Commons.UserInfoP2CConverter;
-import org.arsonal.accounting.dao.UserInfoDAO;
+import org.arsonal.accounting.converter.persistence2commons.UserInfoP2CConverter;
+import org.arsonal.accounting.dao.UserInfoDao;
 import org.arsonal.accounting.exception.ResourceNotFountException;
 import org.arsonal.accounting.model.persistence.UserInfo;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 public class UserInfoManagerTest {
     UserInfoManager userInfoManager;
     @Mock
-    UserInfoDAO userInfoDAO;
+    UserInfoDao userInfoDAO;
 
     @BeforeEach
     void setUp() {

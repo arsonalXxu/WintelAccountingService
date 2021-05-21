@@ -1,8 +1,9 @@
-package org.arsonal.accounting.converter.persistence2Commons;
+package org.arsonal.accounting.converter.persistence2commons;
+
+import org.arsonal.accounting.model.persistence.UserInfo;
 
 import com.google.common.base.Converter;
 import lombok.NoArgsConstructor;
-import org.arsonal.accounting.model.persistence.UserInfo;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

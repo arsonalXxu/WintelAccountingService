@@ -1,32 +1,27 @@
-package org.arsonal.accounting.converter.persistence2Commons;
+package org.arsonal.accounting.converter.commons2service;
 
 import lombok.val;
-import org.arsonal.accounting.model.persistence.UserInfo;
+import org.arsonal.accounting.model.common.UserInfo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
-class UserInfoP2CConverterTest {
-    private UserInfoP2CConverter converter = new UserInfoP2CConverter();
+class UserInfoC2SConverterTest {
+    private UserInfoC2SConverter converter = new UserInfoC2SConverter();
 
     @Test
-    public void testDoForward() {
+    void testDoForward() {
         // Arrange
         val userId = 100L;
         val username = "hardcore";
-        val password = "password";
-        val now = LocalDate.now();
-
-        val userInfoPersistence = UserInfo.builder()
+        val password = "hardcore";
+        val userInfoCommon = UserInfo.builder()
                 .id(userId)
                 .username(username)
                 .password(password)
-                .createTime(now)
                 .build();
 
         // Act
-        val result = converter.convert(userInfoPersistence);
+        val result = converter.convert(userInfoCommon);
 
         // Assert
         Assertions.assertThat(result)
@@ -40,22 +35,20 @@ class UserInfoP2CConverterTest {
         // Arrange
         val userId = 100L;
         val username = "hardcore";
-        val password = "password";
-
-        val userInfoCommons = org.arsonal.accounting.model.common.UserInfo.builder()
+        val password = "hardcore";
+        val userInfoCommon = org.arsonal.accounting.model.service.UserInfo.builder()
                 .id(userId)
                 .username(username)
                 .password(password)
                 .build();
 
         // Act
-        val result = converter.reverse().convert(userInfoCommons);
+        val result = converter.reverse().convert(userInfoCommon);
 
         // Assert
         Assertions.assertThat(result)
                 .hasFieldOrPropertyWithValue("id", userId)
                 .hasFieldOrPropertyWithValue("username", username)
-                .hasFieldOrPropertyWithValue("password", password)
-                .hasFieldOrPropertyWithValue("createTime", LocalDate.now());
+                .hasFieldOrPropertyWithValue("password", password);
     }
 }

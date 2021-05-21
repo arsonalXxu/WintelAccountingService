@@ -3,8 +3,9 @@ package org.arsonal.accounting.exception;
 import lombok.Data;
 
 /**
- * HC Accounting Service Exception
+ * HC Accounting Service Exception.
  */
+
 @Data
 public class ServiceException extends RuntimeException {
     private int statusCode;
