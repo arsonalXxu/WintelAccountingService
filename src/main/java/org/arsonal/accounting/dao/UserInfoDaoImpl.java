@@ -24,4 +24,14 @@ public class UserInfoDaoImpl implements UserInfoDao {
     public UserInfo getUserInfoById(Long id) {
         return userInfoMapper.getUserInfoByUserId(id);
     }
+
+    @Override
+    public UserInfo getUserInfoByUserName(String username) {
+        return userInfoMapper.getUserInfoByUserName(username);
+    }
+
+    @Override
+    public void createNewUser(UserInfo userInfo) {
+        userInfoMapper.createNewUser(userInfo);
+    }
 }

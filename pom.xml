@@ -47,6 +47,13 @@
             <artifactId>guava</artifactId>
             <version>29.0-jre</version>
         </dependency>
+        <!-- shiro-spring -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.7.1</version>
+        </dependency>
+
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -121,6 +128,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 
