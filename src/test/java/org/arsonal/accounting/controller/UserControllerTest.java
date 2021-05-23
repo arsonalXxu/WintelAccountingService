@@ -1,10 +1,9 @@
 package org.arsonal.accounting.controller;
 
 import lombok.val;
-import org.arsonal.accounting.converter.commons2Service.UserInfoC2SConverter;
+import org.arsonal.accounting.converter.commons2service.UserInfoC2SConverter;
 import org.arsonal.accounting.manager.UserInfoManager;
 import org.arsonal.accounting.model.common.UserInfo;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

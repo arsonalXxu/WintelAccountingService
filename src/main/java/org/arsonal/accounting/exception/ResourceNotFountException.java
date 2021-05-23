@@ -5,6 +5,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND)
 public class ResourceNotFountException extends ServiceException {
+    /**
+     * constructor for ResourceNotFountException.
+     * @param message throw message.
+     */
     public ResourceNotFountException(String message) {
         super(message);
         this.setStatusCode(HttpStatus.NOT_FOUND.value());
